@@ -27,6 +27,7 @@ jobs:
         run: |
           output=$(npm run test:cov | tee /dev/stderr)
           echo "coverage='$(echo $output | tr -d "\n")'" >> $GITHUB_ENV
+          npm run test:cov | tee output
       - name: Push coverage
         uses: outofindex/lcov@master
         with:
