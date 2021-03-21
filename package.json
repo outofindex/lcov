@@ -1,0 +1,34 @@
+{
+  "name": "lcov",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://github.com/outofindex/lcov",
+  "author": "Simeon Velichkov <simeonvelichkov@gmail.com> (https://simov.github.io)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/outofindex/lcov.git"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.9.6",
+    "mocha": "^8.3.2",
+    "nyc": "^15.1.0"
+  },
+  "main": "./dist/lcov.js",
+  "files": [],
+  "types": "",
+  "scripts": {
+    "build": "node esbuild.js",
+    "test": "npm run test:ci",
+    "test:ci": "npx mocha --recursive",
+    "test:cov": "npx nyc --reporter=lcov --reporter=text-summary mocha -- --recursive"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
