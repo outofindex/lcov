@@ -27,6 +27,6 @@ jobs:
         run: |
           echo "coverage=$(npm run test:cov | tee /dev/stderr)" >> $GITHUB_ENV
       - name: Push coverage
-        uses: outofindex/coverage@master
+        uses: outofindex/lcov@master
         with:
           coverage: ${{ env.coverage }}
