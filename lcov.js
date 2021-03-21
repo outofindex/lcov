@@ -57,6 +57,7 @@ var pipe = compose(
     // testing
     // var summary = "lcov '> lcov@0.0.0 test:cov /home/runner/work/lcov/lcov > npx nyc --reporter=lcov --reporter=text-summary mocha -- --recursive lcov foo ✓ bar 1 passing (3ms) =============================== Coverage summary =============================== Statements : 85.71% ( 6/7 ) Branches : 100% ( 0/0 ) Functions : 100% ( 1/1 ) Lines : 85.71% ( 6/7 ) ================================================================================'"
     // core.setOutput('foo', bar)
+    console.log(summary)
 
     await pipe(summary)
   }
