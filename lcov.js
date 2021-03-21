@@ -60,6 +60,8 @@ var pipe = compose(
     console.log(summary)
 
     await pipe(summary)
+
+    console.log(fs.readFileSync('output', 'utf8'))
   }
   catch (err) {
     core.setFailed(err.message)
