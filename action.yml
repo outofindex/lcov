@@ -1,0 +1,13 @@
+name: Coverage
+# description: Something clever
+runs:
+  using: 'node12'
+  main: 'dist/lcov.js'
+inputs:
+  coverage:  # id of input
+    description: Yes
+    required: true
+    # default: 'World'
+# outputs:
+#   time: # id of output
+#     description: 'The time we greeted you'
