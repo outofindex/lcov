@@ -1,5 +1,8 @@
 name: test
 on: [push, pull_request]
+defaults:
+  run:
+    working-directory: /home/runner/work/lcov/lcov/main
 jobs:
   test:
     name: Coverage
@@ -34,9 +37,6 @@ jobs:
       - name: Build
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: npm install
-        env:
-          GITHUB_WORKSPACE: /home/runner/work/lcov/lcov/main
-          RUNNER_WORKSPACE: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
       - name: Coverage
         run: |
