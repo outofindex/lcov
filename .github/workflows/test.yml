@@ -43,7 +43,7 @@ jobs:
         run: |
           output=$(npm run test:cov | tee /dev/stderr)
           echo "coverage='$(echo $output | tr -d "\n")'" >> $GITHUB_ENV
-        working-directory: ${GITHUB_WORKSPACE}/main
+        working-directory: "${GITHUB_WORKSPACE}/main"
       # -----------------------------------------------------------------------
       - name: Generate badge
         uses: outofindex/lcov@master
