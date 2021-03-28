@@ -55,6 +55,8 @@ jobs:
         run: |
           cp -r coverage/lcov-report /home/runner/work/lcov/lcov/docs/coverage
           cp coverage.svg /home/runner/work/lcov/lcov/docs/coverage/badge.svg
+          cat /home/runner/work/lcov/lcov/coverage.svg
+          cat /home/runner/work/lcov/lcov/main/coverage.svg
         working-directory: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
       - name: Push
