@@ -53,8 +53,9 @@ jobs:
       # -----------------------------------------------------------------------
       - name: Copy
         run: |
-          cp -r coverage coverage.svg /home/runner/work/lcov/lcov/docs
-        working-directory: /home/runner/work/lcov/lcov/main
+          cp coverage/lcov-report/* /home/runner/work/lcov/lcov/docs/coverage
+          cp coverage.svg /home/runner/work/lcov/lcov/docs/coverage/badge.svg
+        working-directory: ${{ env.GITHUB_WORKSPACE }}/main
       # -----------------------------------------------------------------------
       - name: Push
         run: |
