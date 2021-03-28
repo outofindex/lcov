@@ -1,8 +1,8 @@
 name: test
 on: [push, pull_request]
-defaults:
-  run:
-    working-directory: /home/runner/work/lcov/lcov/main
+# defaults:
+#   run:
+#     working-directory: /home/runner/work/lcov/lcov/main
 jobs:
   test:
     name: Coverage
@@ -30,6 +30,7 @@ jobs:
       - name: Cache node_modules
         id: cache-modules
         uses: actions/cache@v2
+        working-directory: /home/runner/work/lcov/lcov/main
         with:
           path: node_modules
           key: ${{ matrix.node }}-${{ matrix.os }}-${{ hashFiles('package.json') }}
@@ -37,17 +38,20 @@ jobs:
       - name: Build
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: npm install
+        working-directory: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
       - name: Coverage
         run: |
           output=$(npm run test:cov | tee /dev/stderr)
           echo "coverage='$(echo $output | tr -d "\n")'" >> $GITHUB_ENV
+        working-directory: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
       - name: Push coverage
         uses: outofindex/lcov@master
         with:
           coverage: ${{ env.coverage }}
           token: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
       - name: Test
         run: |
