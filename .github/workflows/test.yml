@@ -36,6 +36,7 @@ jobs:
         run: npm install
         env:
           GITHUB_WORKSPACE: /home/runner/work/lcov/lcov/main
+          RUNNER_WORKSPACE: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
       - name: Coverage
         run: |
