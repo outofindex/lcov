@@ -4,8 +4,12 @@ runs:
   using: 'node12'
   main: 'dist/lcov.js'
 inputs:
-  coverage:  # id of input
-    description: Yes
+  coverage:
+    description: Coverage summary
+    required: true
+    # default: 'World'
+  token:
+    description: GitHub token
     required: true
     # default: 'World'
 # outputs:
