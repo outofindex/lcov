@@ -43,9 +43,10 @@ jobs:
       # -----------------------------------------------------------------------
       - name: Coverage report
         run: |
+          cd $GITHUB_WORKSPACE/main
           output=$(npm run test:cov | tee /dev/stderr)
           echo "coverage='$(echo $output | tr -d "\n")'" >> $GITHUB_ENV
-        working-directory: /home/runner/work/lcov/lcov/main
+        # working-directory: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
       - name: Generate badge
         uses: outofindex/lcov@master
