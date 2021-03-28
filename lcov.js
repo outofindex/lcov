@@ -19,7 +19,7 @@ var percentage = (summary) => {
 
 var badge = async (percentage) => {
   var label = 'coverage'
-  var message = `${percentage}%`
+  var message = `${percentage}%25`
   var colors = [
     {threshold: 95, color: 'brightgreen'},
     {threshold: 90, color: 'green'},
