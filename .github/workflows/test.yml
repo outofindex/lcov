@@ -30,9 +30,9 @@ jobs:
       - name: Cache node_modules
         id: cache-modules
         uses: actions/cache@v2
-        working-directory: /home/runner/work/lcov/lcov/main
+        # working-directory: /home/runner/work/lcov/lcov/main
         with:
-          path: node_modules
+          path: main/node_modules
           key: ${{ matrix.node }}-${{ matrix.os }}-${{ hashFiles('package.json') }}
       # -----------------------------------------------------------------------
       - name: Build
