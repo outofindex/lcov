@@ -30,7 +30,6 @@ jobs:
       - name: Cache node_modules
         id: cache-modules
         uses: actions/cache@v2
-        # working-directory: /home/runner/work/lcov/lcov/main
         with:
           path: main/node_modules
           key: ${{ matrix.node }}-${{ matrix.os }}-${{ hashFiles('package.json') }}
@@ -46,15 +45,22 @@ jobs:
           echo "coverage='$(echo $output | tr -d "\n")'" >> $GITHUB_ENV
         working-directory: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
-      - name: Push coverage
+      - name: Generate badge
         uses: outofindex/lcov@master
         with:
           coverage: ${{ env.coverage }}
           token: ${{ secrets.GITHUB_TOKEN }}
-        # working-directory: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
-      - name: Test
+      - name: Copy
         run: |
-          git --version
-          git branch
-          git config --list
+          cp -r coverage coverage.svg /home/runner/work/lcov/lcov/docs
+        working-directory: /home/runner/work/lcov/lcov/main
+      # -----------------------------------------------------------------------
+      - name: Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Update coverage"
+          git push
+        working-directory: /home/runner/work/lcov/lcov/docs
