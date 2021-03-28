@@ -51,7 +51,8 @@ jobs:
       # -----------------------------------------------------------------------
       - name: Copy report and badge
         run: |
-          cp -r $GITHUB_WORKSPACE/main/coverage/lcov-report $GITHUB_WORKSPACE/docs/coverage
+          mkdir -p $GITHUB_WORKSPACE/docs/coverage
+          cp $GITHUB_WORKSPACE/main/coverage/lcov-report/* $GITHUB_WORKSPACE/docs/coverage/
           cp $GITHUB_WORKSPACE/coverage.svg $GITHUB_WORKSPACE/docs/coverage/badge.svg
       # -----------------------------------------------------------------------
       - name: Push to docs branch
