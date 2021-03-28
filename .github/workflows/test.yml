@@ -8,13 +8,16 @@ jobs:
       matrix:
         node: [14]
     steps:
+      - name: Clone default branch
+        uses: actions/checkout@v2
+        with:
+          path: main
+      # -----------------------------------------------------------------------
       - name: Clone docs branch
         uses: actions/checkout@v2
         with:
+          path: docs
           ref: docs
-      # -----------------------------------------------------------------------
-      - name: Clone default branch
-        uses: actions/checkout@v2
       # -----------------------------------------------------------------------
       - name: Set Node.js version
         uses: actions/setup-node@v2
