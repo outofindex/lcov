@@ -53,8 +53,8 @@ jobs:
       # -----------------------------------------------------------------------
       - name: Copy
         run: |
-          cp -r $GITHUB_WORKFLOW/main/coverage/lcov-report $GITHUB_WORKFLOW/docs/coverage
-          cp $GITHUB_WORKFLOW/coverage.svg $GITHUB_WORKFLOW/docs/coverage/badge.svg
+          cp -r $GITHUB_WORKSPACE/main/coverage/lcov-report $GITHUB_WORKSPACE/docs/coverage
+          cp $GITHUB_WORKSPACE/coverage.svg $GITHUB_WORKSPACE/docs/coverage/badge.svg
       # -----------------------------------------------------------------------
       - name: Push
         run: |
