@@ -51,7 +51,7 @@ jobs:
         with:
           coverage: ${{ env.coverage }}
           token: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: /home/runner/work/lcov/lcov/main
+        # working-directory: /home/runner/work/lcov/lcov/main
       # -----------------------------------------------------------------------
       - name: Test
         run: |
