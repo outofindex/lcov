@@ -14,12 +14,12 @@ var percentage = (summary) => {
   var percentage = regex
     .map((regex) => parseFloat(regex.exec(summary)[1]))
     .reduce((all, stat) => all += stat) / regex.length
-  return parseFloat(percentage.toFixed(2))
+  return Math.round(percentage)
 }
 
 var badge = async (percentage) => {
   var label = 'coverage'
-  var message = percentage
+  var message = `${percentage}%`
   var colors = [
     {threshold: 95, color: 'brightgreen'},
     {threshold: 90, color: 'green'},
