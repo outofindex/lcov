@@ -1,7 +1,7 @@
 
 var fs = require('fs')
 var core = require('@actions/core')
-var github = require('@actions/github')
+// var github = require('@actions/github')
 var compose = require('request-compose')
 var request = compose.buffer
 
@@ -33,35 +33,39 @@ var badge = async (percentage) => {
   var {color} =
     colors.find(({threshold, color}) => percentage >= threshold) ||
     {color: 'red'}
-  var {body:svg} = await request({
+  var {body:svg} = await compose.buffer({
     url: `https://img.shields.io/badge/${label}-${message}-${color}`,
     qs: {style: 'flat-square'}
   })
-
-  // push to the docs branch
   fs.writeFileSync('coverage.svg', svg)
-  // push the coverage/lcov-report
-
-  console.log(process.cwd())
-  console.log(fs.readdirSync(process.cwd()))
 }
 
-var pipe = compose(
+var github = async () => {
+  var {res, body} = await compose.client({
+    method: 'GET',
+    url: 'https://api.github.com/rate_limit',
+    headers: {
+      authorization: `Bearer ${process.env.INPUT_TOKEN}`,
+      'user-agent': 'request-compose',
+    }
+  })
+}
+
+var pipeline = compose(
   percentage,
   badge,
+  github,
 )
+
+/*
+  - push to the docs branch
+  - push the coverage/lcov-report
+*/
 
 ;(async () => {
   try {
-    var summary = core.getInput('coverage')
-    // testing
-    // var summary = "lcov '> lcov@0.0.0 test:cov /home/runner/work/lcov/lcov > npx nyc --reporter=lcov --reporter=text-summary mocha -- --recursive lcov foo ✓ bar 1 passing (3ms) =============================== Coverage summary =============================== Statements : 85.71% ( 6/7 ) Branches : 100% ( 0/0 ) Functions : 100% ( 1/1 ) Lines : 85.71% ( 6/7 ) ================================================================================'"
-    // core.setOutput('foo', bar)
-    console.log(summary)
-
-    await pipe(summary)
-
-    console.log(fs.readFileSync('output', 'utf8'))
+    var summary = process.env.INPUT_COVERAGE
+    await pipeline(summary)
   }
   catch (err) {
     core.setFailed(err.message)
