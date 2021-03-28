@@ -1,9 +1,7 @@
 
 var fs = require('fs')
 var core = require('@actions/core')
-// var github = require('@actions/github')
 var compose = require('request-compose')
-var request = compose.buffer
 
 
 var percentage = (summary) => {
@@ -37,35 +35,18 @@ var badge = async (percentage) => {
     url: `https://img.shields.io/badge/${label}-${message}-${color}`,
     qs: {style: 'flat-square'}
   })
-  fs.writeFileSync('coverage.svg', svg)
-}
-
-var github = async () => {
-  var {res, body} = await compose.client({
-    method: 'GET',
-    url: 'https://api.github.com/rate_limit',
-    headers: {
-      authorization: `Bearer ${process.env.INPUT_TOKEN}`,
-      'user-agent': 'request-compose',
-    }
-  })
+  return svg
 }
 
 var pipeline = compose(
   percentage,
   badge,
-  github,
 )
-
-/*
-  - push to the docs branch
-  - push the coverage/lcov-report
-*/
 
 ;(async () => {
   try {
-    var summary = process.env.INPUT_COVERAGE
-    await pipeline(summary)
+    var svg = await pipeline(process.env.INPUT_COVERAGE)
+    fs.writeFileSync('coverage.svg', svg)
   }
   catch (err) {
     core.setFailed(err.message)
